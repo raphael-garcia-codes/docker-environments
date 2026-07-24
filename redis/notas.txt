@@ -1,0 +1,8 @@
+Cliente
+
+Você pode acessar usando:
+
+Host: localhost
+Porta: 6379
+
+Ferramentas como Redis Insight, Another Redis Desktop Manager (ARDM) ou a extensão Redis do VS Code funcionam muito bem para inspeção de chaves.

@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+
+  redis:
+    image: redis:8-alpine
+
+    container_name: redis
+
+    hostname: redis
+
+    restart: unless-stopped
+
+    command: redis-server /usr/local/etc/redis/redis.conf
+
+    ports:
+      - "6379:6379"
+
+    volumes:
+      - ./redis/data:/data
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf:ro
+
+    healthcheck:
+      test: ["CMD", "redis-cli", "PING"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "20m"
+        max-file: "5"
+
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
