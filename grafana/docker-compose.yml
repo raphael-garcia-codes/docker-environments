@@ -1,0 +1,63 @@
+version: "3.9"
+
+services:
+
+  grafana:
+    image: grafana/grafana-oss:latest
+
+    container_name: grafana
+
+    hostname: grafana
+
+    restart: unless-stopped
+
+    user: "472"
+
+    ports:
+      - "13000:3000"
+
+    environment:
+
+      TZ: America/Sao_Paulo
+
+      GF_SERVER_ROOT_URL: http://localhost:13000
+
+      GF_SECURITY_ADMIN_USER: admin
+
+      GF_SECURITY_ADMIN_PASSWORD: Admin@123
+
+      GF_USERS_ALLOW_SIGN_UP: "false"
+
+      GF_INSTALL_PLUGINS: >
+
+        grafana-clock-panel,
+
+        grafana-piechart-panel
+
+    volumes:
+
+      # Banco SQLite do Grafana
+      - ./data:/var/lib/grafana
+
+      # Provisionamento automático
+      - ./provisioning:/etc/provisioning
+
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000/api/health"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "20m"
+        max-file: "5"
+
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
