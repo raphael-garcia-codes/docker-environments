@@ -4,7 +4,7 @@ setlocal enabledelayedexpansion
 set "ROOT_DIR=%~dp0"
 set "ROOT_DIR=%ROOT_DIR:~0,-1%"
 
-for %%S in (grafana kafka kafka-ui postgres pgadmin rabbitmq redis redisinsight vault) do (
+for %%S in (grafana kafka kafka-ui postgres pgadmin rabbitmq redis redisinsight vault wiremock wiremock-gui sonarqube jaeger) do (
   echo Derrubando ambiente em: %%S
   pushd "%ROOT_DIR%\%%S"
   docker compose down

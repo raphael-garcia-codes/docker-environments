@@ -7,3 +7,21 @@
   },
   data: undefined
 }
+7/25/2026, 2:50:26 PM | ERROR | KeytarEncryptionStrategy | Failed to initialize keytar module | {
+  error: {
+    type: 'Error',
+    message: 'Error loading shared library libsecret-1.so.0: No such file or directory (needed by /usr/src/app/redisinsight/api/node_modules/keytar/build/Release/keytar.node)',
+    stack: undefined,
+    cause: undefined
+  },
+  data: undefined
+}
+7/25/2026, 4:57:59 PM | ERROR | KeytarEncryptionStrategy | Failed to initialize keytar module | {
+  error: {
+    type: 'Error',
+    message: 'Error loading shared library libsecret-1.so.0: No such file or directory (needed by /usr/src/app/redisinsight/api/node_modules/keytar/build/Release/keytar.node)',
+    stack: undefined,
+    cause: undefined
+  },
+  data: undefined
+}

@@ -1,0 +1,44 @@
+version: "3.9"
+services:
+  jaeger:
+    image: jaegertracing/jaeger:2.11.0
+    container_name: jaeger
+    hostname: jaeger
+    restart: unless-stopped
+    ports:
+      # Jaeger UI
+      - "16686:16686"
+      # OTLP gRPC
+      - "4317:4317"
+      # OTLP HTTP
+      - "4318:4318"
+      # Jaeger Collector gRPC
+      - "14250:14250"
+      # Jaeger Collector HTTP
+      - "14268:14268"
+      # Query
+      - "16685:16685"
+    environment:
+      TZ: America/Sao_Paulo
+      SPAN_STORAGE_TYPE: badger
+      BADGER_EPHEMERAL: "false"
+      BADGER_DIRECTORY_VALUE: /badger/data
+      BADGER_DIRECTORY_KEY: /badger/key
+    volumes:
+      - ./data:/badger
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:16686"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: "20m"
+        max-file: "5"
+    networks:
+      - backend
+networks:
+  backend:
+    driver: bridge

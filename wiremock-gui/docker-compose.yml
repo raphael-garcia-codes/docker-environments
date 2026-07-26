@@ -1,0 +1,15 @@
+version: "3"
+services:
+  wiremock:
+    image: "holomekc/wiremock-gui:latest"
+    container_name: my_wiremock
+    ports:
+      # This is just an example of a port mapping
+      - "8089:8089"
+      - "8080:8080"
+    command:
+      "--port 8089 --https-port 8080 --max-request-journal 1000 --local-response-templating --verbose"
+    volumes:
+      - ./root-dir:/home/wiremock
+    environment:
+      WIREMOCK_MY_VAR: "systemValue response templating feature"
