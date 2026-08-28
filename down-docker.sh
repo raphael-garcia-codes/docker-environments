@@ -14,9 +14,29 @@ services=(
   "redis"
   "redisinsight"
   "vault"
+  "omniroute"
+  "wiremock"
+  "wiremock-gui"
+  "sonarqube"
+  "jaeger"
 )
 
-for service in "${services[@]}"; do
+if (($# == 0)); then
+  selected_services=("${services[@]}")
+else
+  selected_services=()
+  for argument in "$@"; do
+    service="${argument#-}"
+    if [[ ! -f "${ROOT_DIR}/${service}/docker-compose.yml" ]]; then
+      echo "Serviço inválido: ${service}" >&2
+      echo "Serviços disponíveis: ${services[*]}" >&2
+      exit 1
+    fi
+    selected_services+=("${service}")
+  done
+fi
+
+for service in "${selected_services[@]}"; do
   echo Derrubando ambiente em: "${service}"
   (cd "${ROOT_DIR}/${service}" && docker compose down)
 done

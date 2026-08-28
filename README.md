@@ -44,6 +44,8 @@ Os scripts `up-docker.sh` e `up-docker.bat` sobem todos os ambientes. Os scripts
 chmod +x up-docker.sh down-docker.sh
 ./up-docker.sh
 ./down-docker.sh
+./up-docker.sh -redis -rabbitmq
+./down-docker.sh -redis -rabbitmq
 ```
 
 ### Windows
@@ -51,7 +53,11 @@ chmod +x up-docker.sh down-docker.sh
 ```bat
 up-docker.bat
 down-docker.bat
+up-docker.bat -redis -rabbitmq
+down-docker.bat -redis -rabbitmq
 ```
+
+Sem parâmetros, os scripts processam todos os ambientes. Para processar apenas um ou mais serviços, informe os nomes com ou sem o prefixo `-`.
 
 ## URLs e portas dos serviços
 
